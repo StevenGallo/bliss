@@ -1,0 +1,13 @@
+{
+    "manifest_version": 2,
+
+    "name": "Happy Feed",
+    "description": "This extension removes negative content from your current page",
+    "version": "1.0",
+
+    "content_scripts": [{
+        "matches": ["*://*/*"],
+        "js": ["bundle.js"],
+        "run_at": "document_end"
+    }]
+}
