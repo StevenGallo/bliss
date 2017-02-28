@@ -30934,42 +30934,41 @@ var tone_analyzer = watson.tone_analyzer({
     username: '9444bf37-deda-4406-ae96-523c49859412',
     password: 'gP4yf2WgDhZw',
     version: 'v3',
-    version_date: '2016-05-19 '
+    version_date: '2016-05-19'
 });
-let k = 0;
-var elements = document.body.getElementsByTagName('*');
+
+var elements = document.body.querySelectorAll('p,li,td');
 
 for (var i = 0; i < elements.length; i++) {
     var element = elements[i];
 
     for (var j = 0; j < element.childNodes.length; j++) {
-        var node = element.childNodes[j];
+        var nodeCheck = element.childNodes[j];
 
-        if (node.nodeType === 3) {
-            let nodeText = node.nodeValue
+        if (nodeCheck.nodeType === 3) {
+            var nodeText = nodeCheck.nodeValue
             checkText = nodeText.replace(/\s\s+/g, ' ');
-            if (checkText.length > 40) {
-                console.log(checkText.length)
+            if (checkText.length > 20) {
                 var text = checkText;
-                console.log(checkText)
-                k = +1
-                console.log(k)
-                var replacedText = 'what???'
-                if (text === 'Dialog') {
-                    element.replaceChild(document.createTextNode(replacedText), node);
+                //console.log(checkText)
+                var replacedText = ':::::BLISS:::::'
+                tone_analyzer.tone({ text: text, tones: 'emotion', sentences: false },
+                    function(err, tone) {
+                        if (err)
+                            console.log(err);
+                        else
+                        //console.log(JSON.stringify(tone, null, 2));
+                            console.log(tone.document_tone.tone_categories[0].tones[0].score)
+                        console.log(nodeCheck)
+                        return tone
+                    });
+                if (tone.document_tone.tone_categories[0].tones[0].score > .1 || tone.document_tone.tone_categories[0].tones[1].score > .1) {
+                    element.replaceChild(document.createTextNode(replacedText), nodeCheck);
                 }
             }
         }
     }
 }
-
-// tone_analyzer.tone({ text: '<p>I need help getting each page to communicate and I think the way I am hiding the parent divs in popup.js won\'t work. I am confused on how to perform the action on the dom from the front.</p>' },
-//     function(err, tone) {
-//         if (err)
-//             console.log(err);
-//         else
-//             console.log(JSON.stringify(tone, null, 2));
-//     });
 },{"watson-developer-cloud":403}],170:[function(require,module,exports){
 (function (process,Buffer){
 

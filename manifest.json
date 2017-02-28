@@ -1,9 +1,14 @@
 {
     "manifest_version": 2,
 
-    "name": "Happy Feed",
+    "name": "Bliss",
     "description": "This extension removes negative content from your current page",
     "version": "1.0",
+
+    "browser_action": {
+        "default_icon": { "16": "red.png" },
+        "default_title": "Bliss"
+    },
 
     "content_scripts": [{
         "matches": ["*://*/*"],
